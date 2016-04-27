@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/jadeblaquiere/btcd/wire"
-	"github.com/btcsuite/btcrpcclient"
+	"github.com/jadeblaquiere/btcrpcclient"
 	"github.com/jadeblaquiere/btcutil"
 )
 

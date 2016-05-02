@@ -9,9 +9,9 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/jadeblaquiere/btcd/btcjson"
-	"github.com/jadeblaquiere/btcd/wire"
-	"github.com/jadeblaquiere/btcutil"
+	"github.com/jadeblaquiere/ctcd/btcjson"
+	"github.com/jadeblaquiere/ctcd/wire"
+	"github.com/jadeblaquiere/ctcutil"
 )
 
 // FutureGenerateResult is a future promise to deliver the result of a

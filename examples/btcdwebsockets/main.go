@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/jadeblaquiere/btcd/wire"
-	"github.com/jadeblaquiere/btcrpcclient"
-	"github.com/jadeblaquiere/btcutil"
+	"github.com/jadeblaquiere/ctcd/wire"
+	"github.com/jadeblaquiere/ctcrpcclient"
+	"github.com/jadeblaquiere/ctcutil"
 )
 
 func main() {

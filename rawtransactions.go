@@ -9,9 +9,9 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	"github.com/jadeblaquiere/btcd/btcjson"
-	"github.com/jadeblaquiere/btcd/wire"
-	"github.com/jadeblaquiere/btcutil"
+	"github.com/jadeblaquiere/ctcd/btcjson"
+	"github.com/jadeblaquiere/ctcd/wire"
+	"github.com/jadeblaquiere/ctcutil"
 )
 
 // SigHashType enumerates the available signature hashing types that the

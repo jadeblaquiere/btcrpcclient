@@ -9,15 +9,9 @@ import (
 	"encoding/json"
 	"errors"
 
-<<<<<<< HEAD
 	"github.com/jadeblaquiere/ctcd/btcjson"
 	"github.com/jadeblaquiere/ctcd/chaincfg/chainhash"
 	"github.com/jadeblaquiere/ctcutil"
-=======
-	"github.com/btcsuite/btcd/btcjson"
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/btcsuite/btcutil"
->>>>>>> btcsuite/master
 )
 
 // FutureGenerateResult is a future promise to deliver the result of a

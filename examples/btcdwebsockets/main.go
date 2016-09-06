@@ -10,9 +10,15 @@ import (
 	"path/filepath"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/jadeblaquiere/ctcd/chaincfg/chainhash"
 	"github.com/jadeblaquiere/ctcrpcclient"
 	"github.com/jadeblaquiere/ctcutil"
+=======
+	"github.com/btcsuite/btcd/chaincfg/chainhash"
+	"github.com/btcsuite/btcrpcclient"
+	"github.com/btcsuite/btcutil"
+>>>>>>> btcsuite/master
 )
 
 func main() {

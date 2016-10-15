@@ -775,7 +775,7 @@ func (r FutureAddMultisigAddressResult) Receive() (btcutil.Address, error) {
 		return nil, err
 	}
 
-	return btcutil.DecodeAddress(addr, &chaincfg.MainNetParams)
+	return btcutil.DecodeAddress(addr, &chaincfg.CTIndigoNetParams)
 }
 
 // AddMultisigAddressAsync returns an instance of a type that can be used to get
@@ -893,7 +893,7 @@ func (r FutureGetNewAddressResult) Receive() (btcutil.Address, error) {
 		return nil, err
 	}
 
-	return btcutil.DecodeAddress(addr, &chaincfg.MainNetParams)
+	return btcutil.DecodeAddress(addr, &chaincfg.CTIndigoNetParams)
 }
 
 // GetNewAddressAsync returns an instance of a type that can be used to get the
@@ -931,7 +931,7 @@ func (r FutureGetRawChangeAddressResult) Receive() (btcutil.Address, error) {
 		return nil, err
 	}
 
-	return btcutil.DecodeAddress(addr, &chaincfg.MainNetParams)
+	return btcutil.DecodeAddress(addr, &chaincfg.CTIndigoNetParams)
 }
 
 // GetRawChangeAddressAsync returns an instance of a type that can be used to
@@ -970,7 +970,7 @@ func (r FutureGetAccountAddressResult) Receive() (btcutil.Address, error) {
 		return nil, err
 	}
 
-	return btcutil.DecodeAddress(addr, &chaincfg.MainNetParams)
+	return btcutil.DecodeAddress(addr, &chaincfg.CTIndigoNetParams)
 }
 
 // GetAccountAddressAsync returns an instance of a type that can be used to get
@@ -1080,7 +1080,7 @@ func (r FutureGetAddressesByAccountResult) Receive() ([]btcutil.Address, error) 
 	addrs := make([]btcutil.Address, 0, len(addrStrings))
 	for _, addrStr := range addrStrings {
 		addr, err := btcutil.DecodeAddress(addrStr,
-			&chaincfg.MainNetParams)
+			&chaincfg.CTIndigoNetParams)
 		if err != nil {
 			return nil, err
 		}

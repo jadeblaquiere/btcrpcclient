@@ -2,16 +2,16 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcrpcclient
+package cttrpcclient
 
 import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 
-	"github.com/jadeblaquiere/ctcd/btcjson"
-	"github.com/jadeblaquiere/ctcd/chaincfg/chainhash"
-	"github.com/jadeblaquiere/ctcutil"
+	"github.com/jadeblaquiere/cttd/btcjson"
+	"github.com/jadeblaquiere/cttd/chaincfg/chainhash"
+	"github.com/jadeblaquiere/cttutil"
 )
 
 // FutureGenerateResult is a future promise to deliver the result of a
@@ -398,7 +398,7 @@ func (r FutureSubmitBlockResult) Receive() error {
 // returned instance.
 //
 // See SubmitBlock for the blocking version and more details.
-func (c *Client) SubmitBlockAsync(block *btcutil.Block, options *btcjson.SubmitBlockOptions) FutureSubmitBlockResult {
+func (c *Client) SubmitBlockAsync(block *cttutil.Block, options *btcjson.SubmitBlockOptions) FutureSubmitBlockResult {
 	blockHex := ""
 	if block != nil {
 		blockBytes, err := block.Bytes()
@@ -414,7 +414,7 @@ func (c *Client) SubmitBlockAsync(block *btcutil.Block, options *btcjson.SubmitB
 }
 
 // SubmitBlock attempts to submit a new block into the bitcoin network.
-func (c *Client) SubmitBlock(block *btcutil.Block, options *btcjson.SubmitBlockOptions) error {
+func (c *Client) SubmitBlock(block *cttutil.Block, options *btcjson.SubmitBlockOptions) error {
 	return c.SubmitBlockAsync(block, options).Receive()
 }
 

@@ -2,17 +2,17 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcrpcclient
+package cttrpcclient
 
 import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
 
-	"github.com/jadeblaquiere/ctcd/btcjson"
-	"github.com/jadeblaquiere/ctcd/chaincfg/chainhash"
-	"github.com/jadeblaquiere/ctcd/wire"
-	"github.com/jadeblaquiere/ctcutil"
+	"github.com/jadeblaquiere/cttd/btcjson"
+	"github.com/jadeblaquiere/cttd/chaincfg/chainhash"
+	"github.com/jadeblaquiere/cttd/wire"
+	"github.com/jadeblaquiere/cttutil"
 )
 
 // FutureGetBestBlockHashResult is a future promise to deliver the result of a
@@ -58,7 +58,7 @@ type FutureGetBlockResult chan *response
 
 // Receive waits for the response promised by the future and returns the raw
 // block requested from the server given its hash.
-func (r FutureGetBlockResult) Receive() (*btcutil.Block, error) {
+func (r FutureGetBlockResult) Receive() (*cttutil.Block, error) {
 	res, err := receiveFuture(r)
 	if err != nil {
 		return nil, err
@@ -83,7 +83,7 @@ func (r FutureGetBlockResult) Receive() (*btcutil.Block, error) {
 	if err != nil {
 		return nil, err
 	}
-	return btcutil.NewBlock(&msgBlock), nil
+	return cttutil.NewBlock(&msgBlock), nil
 }
 
 // GetBlockAsync returns an instance of a type that can be used to get the
@@ -105,7 +105,7 @@ func (c *Client) GetBlockAsync(blockHash *chainhash.Hash) FutureGetBlockResult {
 //
 // See GetBlockVerbose to retrieve a data structure with information about the
 // block instead.
-func (c *Client) GetBlock(blockHash *chainhash.Hash) (*btcutil.Block, error) {
+func (c *Client) GetBlock(blockHash *chainhash.Hash) (*cttutil.Block, error) {
 	return c.GetBlockAsync(blockHash).Receive()
 }
 

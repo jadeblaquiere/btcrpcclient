@@ -10,17 +10,17 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/jadeblaquiere/ctcd/chaincfg/chainhash"
-	"github.com/jadeblaquiere/ctcrpcclient"
-	"github.com/jadeblaquiere/ctcutil"
+	"github.com/jadeblaquiere/cttd/chaincfg/chainhash"
+	"github.com/jadeblaquiere/cttrpcclient"
+	"github.com/jadeblaquiere/cttutil"
 )
 
 func main() {
 	// Only override the handlers for notifications you care about.
 	// Also note most of these handlers will only be called if you register
-	// for notifications.  See the documentation of the btcrpcclient
+	// for notifications.  See the documentation of the cttrpcclient
 	// NotificationHandlers type for more details about each handler.
-	ntfnHandlers := btcrpcclient.NotificationHandlers{
+	ntfnHandlers := cttrpcclient.NotificationHandlers{
 		OnBlockConnected: func(hash *chainhash.Hash, height int32, time time.Time) {
 			log.Printf("Block connected: %v (%d) %v", hash, height, time)
 		},
@@ -30,19 +30,19 @@ func main() {
 	}
 
 	// Connect to local btcd RPC server using websockets.
-	btcdHomeDir := btcutil.AppDataDir("btcd", false)
+	btcdHomeDir := cttutil.AppDataDir("btcd", false)
 	certs, err := ioutil.ReadFile(filepath.Join(btcdHomeDir, "rpc.cert"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	connCfg := &btcrpcclient.ConnConfig{
+	connCfg := &cttrpcclient.ConnConfig{
 		Host:         "localhost:8334",
 		Endpoint:     "ws",
 		User:         "yourrpcuser",
 		Pass:         "yourrpcpass",
 		Certificates: certs,
 	}
-	client, err := btcrpcclient.New(connCfg, &ntfnHandlers)
+	client, err := cttrpcclient.New(connCfg, &ntfnHandlers)
 	if err != nil {
 		log.Fatal(err)
 	}

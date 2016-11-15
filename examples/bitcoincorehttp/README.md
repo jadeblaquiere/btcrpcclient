@@ -1,17 +1,17 @@
 Bitcoin Core HTTP POST Example
 ==============================
 
-This example shows how to use the btcrpcclient package to connect to a Bitcoin
+This example shows how to use the cttrpcclient package to connect to a Bitcoin
 Core RPC server using HTTP POST mode with TLS disabled and gets the current
 block count.
 
 ## Running the Example
 
-The first step is to use `go get` to download and install the btcrpcclient
+The first step is to use `go get` to download and install the cttrpcclient
 package:
 
 ```bash
-$ go get github.com/btcsuite/btcrpcclient
+$ go get github.com/btcsuite/cttrpcclient
 ```
 
 Next, modify the `main.go` source to specify the correct RPC username and
@@ -25,7 +25,7 @@ password for the RPC server:
 Finally, navigate to the example's directory and run it with:
 
 ```bash
-$ cd $GOPATH/src/github.com/btcsuite/btcrpcclient/examples/bitcoincorehttp
+$ cd $GOPATH/src/github.com/btcsuite/cttrpcclient/examples/bitcoincorehttp
 $ go run *.go
 ```
 

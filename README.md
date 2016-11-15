@@ -1,12 +1,12 @@
-btcrpcclient
+cttrpcclient
 ============
 
-[![Build Status](https://travis-ci.org/btcsuite/btcrpcclient.png?branch=master)]
-(https://travis-ci.org/btcsuite/btcrpcclient)
-[![GoDoc](https://godoc.org/github.com/btcsuite/btcrpcclient?status.png)]
-(http://godoc.org/github.com/btcsuite/btcrpcclient)
+[![Build Status](https://travis-ci.org/btcsuite/cttrpcclient.png?branch=master)]
+(https://travis-ci.org/btcsuite/cttrpcclient)
+[![GoDoc](https://godoc.org/github.com/btcsuite/cttrpcclient?status.png)]
+(http://godoc.org/github.com/btcsuite/cttrpcclient)
 
-btcrpcclient implements a Websocket-enabled Bitcoin JSON-RPC client package
+cttrpcclient implements a Websocket-enabled Bitcoin JSON-RPC client package
 written in [Go](http://golang.org/).  It provides a robust and easy to use
 client for interfacing with a Bitcoin RPC server that uses a btcd/bitcoin core
 compatible Bitcoin JSON-RPC API.
@@ -19,16 +19,16 @@ implement and the API is not stable yet.
 
 ## Documentation
 
-* [API Reference](http://godoc.org/github.com/btcsuite/btcrpcclient)
-* [btcd Websockets Example](https://github.com/btcsuite/btcrpcclient/blob/master/examples/btcdwebsockets)  
+* [API Reference](http://godoc.org/github.com/btcsuite/cttrpcclient)
+* [btcd Websockets Example](https://github.com/btcsuite/cttrpcclient/blob/master/examples/btcdwebsockets)  
   Connects to a btcd RPC server using TLS-secured websockets, registers for
   block connected and block disconnected notifications, and gets the current
   block count
-* [btcwallet Websockets Example](https://github.com/btcsuite/btcrpcclient/blob/master/examples/btcwalletwebsockets)  
+* [btcwallet Websockets Example](https://github.com/btcsuite/cttrpcclient/blob/master/examples/btcwalletwebsockets)  
   Connects to a btcwallet RPC server using TLS-secured websockets, registers for
   notifications about changes to account balances, and gets a list of unspent
   transaction outputs (utxos) the wallet can sign
-* [Bitcoin Core HTTP POST Example](https://github.com/btcsuite/btcrpcclient/blob/master/examples/bitcoincorehttp)  
+* [Bitcoin Core HTTP POST Example](https://github.com/btcsuite/cttrpcclient/blob/master/examples/bitcoincorehttp)  
   Connects to a bitcoin core RPC server using HTTP POST mode with TLS disabled
   and gets the current block count
 
@@ -48,10 +48,10 @@ implement and the API is not stable yet.
 ## Installation
 
 ```bash
-$ go get github.com/btcsuite/btcrpcclient
+$ go get github.com/btcsuite/cttrpcclient
 ```
 
 ## License
 
-Package btcrpcclient is licensed under the [copyfree](http://copyfree.org) ISC
+Package cttrpcclient is licensed under the [copyfree](http://copyfree.org) ISC
 License.

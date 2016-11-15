@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcrpcclient
+package cttrpcclient
 
 import (
 	"bytes"
@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jadeblaquiere/ctcd/btcjson"
-	"github.com/jadeblaquiere/ctcd/chaincfg/chainhash"
-	"github.com/jadeblaquiere/ctcd/wire"
-	"github.com/jadeblaquiere/ctcutil"
+	"github.com/jadeblaquiere/cttd/btcjson"
+	"github.com/jadeblaquiere/cttd/chaincfg/chainhash"
+	"github.com/jadeblaquiere/cttd/wire"
+	"github.com/jadeblaquiere/cttutil"
 )
 
 var (
@@ -106,7 +106,7 @@ type NotificationHandlers struct {
 	// connected to the longest (best) chain.  It will only be invoked if a
 	// preceding call to NotifyReceived, Rescan, or RescanEndHeight has been
 	// made to register for the notification and the function is non-nil.
-	OnRecvTx func(transaction *btcutil.Tx, details *btcjson.BlockDetails)
+	OnRecvTx func(transaction *cttutil.Tx, details *btcjson.BlockDetails)
 
 	// OnRedeemingTx is invoked when a transaction that spends a registered
 	// outpoint is received into the memory pool and also connected to the
@@ -118,7 +118,7 @@ type NotificationHandlers struct {
 	// for the outpoints that are now "owned" as a result of receiving
 	// funds to the registered addresses.  This means it is possible for
 	// this to invoked indirectly as the result of a NotifyReceived call.
-	OnRedeemingTx func(transaction *btcutil.Tx, details *btcjson.BlockDetails)
+	OnRedeemingTx func(transaction *cttutil.Tx, details *btcjson.BlockDetails)
 
 	// OnRescanFinished is invoked after a rescan finishes due to a previous
 	// call to Rescan or RescanEndHeight.  Finished rescans should be
@@ -136,7 +136,7 @@ type NotificationHandlers struct {
 	// memory pool.  It will only be invoked if a preceding call to
 	// NotifyNewTransactions with the verbose flag set to false has been
 	// made to register for the notification and the function is non-nil.
-	OnTxAccepted func(hash *chainhash.Hash, amount btcutil.Amount)
+	OnTxAccepted func(hash *chainhash.Hash, amount cttutil.Amount)
 
 	// OnTxAccepted is invoked when a transaction is accepted into the
 	// memory pool.  It will only be invoked if a preceding call to
@@ -155,7 +155,7 @@ type NotificationHandlers struct {
 	//
 	// This will only be available when speaking to a wallet server
 	// such as btcwallet.
-	OnAccountBalance func(account string, balance btcutil.Amount, confirmed bool)
+	OnAccountBalance func(account string, balance cttutil.Amount, confirmed bool)
 
 	// OnWalletLockState is invoked when a wallet is locked or unlocked.
 	//
@@ -320,7 +320,7 @@ func (c *Client) handleNotification(ntfn *rawNotification) {
 		c.ntfnHandlers.OnTxAcceptedVerbose(rawTx)
 
 	// OnBtcdConnected
-	case btcjson.BtcdConnectedNtfnMethod:
+	case btcjson.CttdConnectedNtfnMethod:
 		// Ignore the notification if the client is not interested in
 		// it.
 		if c.ntfnHandlers.OnBtcdConnected == nil {
@@ -438,7 +438,7 @@ func parseChainNtfnParams(params []json.RawMessage) (*chainhash.Hash,
 // parseChainTxNtfnParams parses out the transaction and optional details about
 // the block it's mined in from the parameters of recvtx and redeemingtx
 // notifications.
-func parseChainTxNtfnParams(params []json.RawMessage) (*btcutil.Tx,
+func parseChainTxNtfnParams(params []json.RawMessage) (*cttutil.Tx,
 	*btcjson.BlockDetails, error) {
 
 	if len(params) == 0 || len(params) > 2 {
@@ -476,7 +476,7 @@ func parseChainTxNtfnParams(params []json.RawMessage) (*btcutil.Tx,
 	// TODO: Change recvtx and redeemingtx callback signatures to use
 	// nicer types for details about the block (block hash as a
 	// chainhash.Hash, block time as a time.Time, etc.).
-	return btcutil.NewTx(&msgTx), block, nil
+	return cttutil.NewTx(&msgTx), block, nil
 }
 
 // parseRescanProgressParams parses out the height of the last rescanned block
@@ -519,7 +519,7 @@ func parseRescanProgressParams(params []json.RawMessage) (*chainhash.Hash, int32
 // parseTxAcceptedNtfnParams parses out the transaction hash and total amount
 // from the parameters of a txaccepted notification.
 func parseTxAcceptedNtfnParams(params []json.RawMessage) (*chainhash.Hash,
-	btcutil.Amount, error) {
+	cttutil.Amount, error) {
 
 	if len(params) != 2 {
 		return nil, 0, wrongNumParams(len(params))
@@ -540,7 +540,7 @@ func parseTxAcceptedNtfnParams(params []json.RawMessage) (*chainhash.Hash,
 	}
 
 	// Bounds check amount.
-	amt, err := btcutil.NewAmount(famt)
+	amt, err := cttutil.NewAmount(famt)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -551,7 +551,7 @@ func parseTxAcceptedNtfnParams(params []json.RawMessage) (*chainhash.Hash,
 		return nil, 0, err
 	}
 
-	return txHash, btcutil.Amount(amt), nil
+	return txHash, cttutil.Amount(amt), nil
 }
 
 // parseTxAcceptedVerboseNtfnParams parses out details about a raw transaction
@@ -597,7 +597,7 @@ func parseBtcdConnectedNtfnParams(params []json.RawMessage) (bool, error) {
 // and whether or not the balance is confirmed or unconfirmed from the
 // parameters of an accountbalance notification.
 func parseAccountBalanceNtfnParams(params []json.RawMessage) (account string,
-	balance btcutil.Amount, confirmed bool, err error) {
+	balance cttutil.Amount, confirmed bool, err error) {
 
 	if len(params) != 3 {
 		return "", 0, false, wrongNumParams(len(params))
@@ -623,12 +623,12 @@ func parseAccountBalanceNtfnParams(params []json.RawMessage) (account string,
 	}
 
 	// Bounds check amount.
-	bal, err := btcutil.NewAmount(fbal)
+	bal, err := cttutil.NewAmount(fbal)
 	if err != nil {
 		return "", 0, false, err
 	}
 
-	return account, btcutil.Amount(bal), confirmed, nil
+	return account, cttutil.Amount(bal), confirmed, nil
 }
 
 // parseWalletLockStateNtfnParams parses out the account name and locked
@@ -886,7 +886,7 @@ func (c *Client) notifyReceivedInternal(addresses []string) FutureNotifyReceived
 // See NotifyReceived for the blocking version and more details.
 //
 // NOTE: This is a btcd extension and requires a websocket connection.
-func (c *Client) NotifyReceivedAsync(addresses []btcutil.Address) FutureNotifyReceivedResult {
+func (c *Client) NotifyReceivedAsync(addresses []cttutil.Address) FutureNotifyReceivedResult {
 	// Not supported in HTTP POST mode.
 	if c.config.HTTPPostMode {
 		return newFutureError(ErrWebsocketsRequired)
@@ -924,7 +924,7 @@ func (c *Client) NotifyReceivedAsync(addresses []btcutil.Address) FutureNotifyRe
 // the address).
 //
 // NOTE: This is a btcd extension and requires a websocket connection.
-func (c *Client) NotifyReceived(addresses []btcutil.Address) error {
+func (c *Client) NotifyReceived(addresses []cttutil.Address) error {
 	return c.NotifyReceivedAsync(addresses).Receive()
 }
 
@@ -957,7 +957,7 @@ func (r FutureRescanResult) Receive() error {
 //
 // NOTE: This is a btcd extension and requires a websocket connection.
 func (c *Client) RescanAsync(startBlock *chainhash.Hash,
-	addresses []btcutil.Address,
+	addresses []cttutil.Address,
 	outpoints []*wire.OutPoint) FutureRescanResult {
 
 	// Not supported in HTTP POST mode.
@@ -1020,7 +1020,7 @@ func (c *Client) RescanAsync(startBlock *chainhash.Hash,
 //
 // NOTE: This is a btcd extension and requires a websocket connection.
 func (c *Client) Rescan(startBlock *chainhash.Hash,
-	addresses []btcutil.Address,
+	addresses []cttutil.Address,
 	outpoints []*wire.OutPoint) error {
 
 	return c.RescanAsync(startBlock, addresses, outpoints).Receive()
@@ -1034,7 +1034,7 @@ func (c *Client) Rescan(startBlock *chainhash.Hash,
 //
 // NOTE: This is a btcd extension and requires a websocket connection.
 func (c *Client) RescanEndBlockAsync(startBlock *chainhash.Hash,
-	addresses []btcutil.Address, outpoints []*wire.OutPoint,
+	addresses []cttutil.Address, outpoints []*wire.OutPoint,
 	endBlock *chainhash.Hash) FutureRescanResult {
 
 	// Not supported in HTTP POST mode.
@@ -1094,7 +1094,7 @@ func (c *Client) RescanEndBlockAsync(startBlock *chainhash.Hash,
 //
 // NOTE: This is a btcd extension and requires a websocket connection.
 func (c *Client) RescanEndHeight(startBlock *chainhash.Hash,
-	addresses []btcutil.Address, outpoints []*wire.OutPoint,
+	addresses []cttutil.Address, outpoints []*wire.OutPoint,
 	endBlock *chainhash.Hash) error {
 
 	return c.RescanEndBlockAsync(startBlock, addresses, outpoints,

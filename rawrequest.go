@@ -2,13 +2,13 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcrpcclient
+package cttrpcclient
 
 import (
 	"encoding/json"
 	"errors"
 
-	"github.com/jadeblaquiere/ctcd/btcjson"
+	"github.com/jadeblaquiere/cttd/btcjson"
 )
 
 // FutureRawResult is a future promise to deliver the result of a RawRequest RPC

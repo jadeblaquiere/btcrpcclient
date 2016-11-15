@@ -7,12 +7,12 @@ package main
 import (
 	"log"
 
-	"github.com/jadeblaquiere/ctcrpcclient"
+	"github.com/jadeblaquiere/cttrpcclient"
 )
 
 func main() {
 	// Connect to local bitcoin core RPC server using HTTP POST mode.
-	connCfg := &btcrpcclient.ConnConfig{
+	connCfg := &cttrpcclient.ConnConfig{
 		Host:         "localhost:8332",
 		User:         "yourrpcuser",
 		Pass:         "yourrpcpass",
@@ -21,7 +21,7 @@ func main() {
 	}
 	// Notice the notification parameter is nil since notifications are
 	// not supported in HTTP POST mode.
-	client, err := btcrpcclient.New(connCfg, nil)
+	client, err := cttrpcclient.New(connCfg, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
